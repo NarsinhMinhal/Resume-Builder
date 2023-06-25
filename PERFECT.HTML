@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Professional Resume</title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+  <div class="first-half">
+    <h1 class="center-align">Professional Resume</h1>
+  
+    <form id="resumeForm">
+      <h2>Personal Information:</h2>
+      <input type="text" name="fullName" placeholder="Full Name">
+      <input type="text" name="email" placeholder="Email">
+      <input type="text" name="phone" placeholder="Phone Number">
+      <input type="text" name="address" placeholder="Address">
+      
+      <h2>Education:</h2>
+      <input type="text" name="university" placeholder="University">
+      <input type="text" name="degree" placeholder="Degree">
+      <input type="text" name="gradYear" placeholder="Graduation Year">
+      
+      <h2>Work Experience:</h2>
+      <input type="text" name="company" placeholder="Company">
+      <input type="text" name="position" placeholder="Position">
+      <input type="text" name="workStartDate" placeholder="Start Date">
+      <input type="text" name="workEndDate" placeholder="End Date">
+      <input type="text" name="responsibilities" placeholder="Responsibilities">
+      
+      <h2>Skills:</h2>
+      <input type="text" name="skills" placeholder="Skills">
+      
+      <h2>Hobbies:</h2>
+      <select name="hobbies">
+        <option value="Reading">Reading</option>
+        <option value="Traveling">Traveling</option>
+        <option value="Painting">Painting</option>
+        <option value="Cooking">Cooking</option>
+        <option value="Gaming">Gaming</option>
+      </select></br>
+      
+     </br><button type="button" onclick="generateResume()">Generate Resume</button>
+      </br><button type="submit">Submit</button>
+    </form>
+  </div>
+  
+  <div class="second-half">
+    <div id="resumeOutput"></div>
+  </div>
+  
+  <script>
+    function generateResume() {
+      // Get form data
+      const formData = new FormData(document.getElementById('resumeForm'));
+      
+      // Create a resume object
+      const resume = {};
+      for (let [key, value] of formData.entries()) {
+        if (key === 'hobbies') {
+          resume[key] = Array.from(value);
+        } else {
+          resume[key] = value;
+        }
+      }
+      
+      // Generate the resume output
+      const resumeOutput = document.getElementById('resumeOutput');
+      resumeOutput.innerHTML = `
+      <h1 class="left-align">${resume.fullName}</h1>
+        <p>Email:<span class="contact-label">${resume.email}</span></p>
+        <p>Phone:<span class="contact-label"> +91 ${resume.phone}</span> </p>
+        <p>Address: ${resume.address}</p>
+        
+        <h3>Education:</h3>
+        <p>${resume.degree}, ${resume.university} (${resume.gradYear})</p>
+        
+        <h3>Work Experience:</h3>
+        <p>${resume.position} at ${resume.company} (${resume.workStartDate} - ${resume.workEndDate})</p>
+        <h3><p>Responsibilities: </h3>${resume.responsibilities}</p></h3>
+        
+        <h3>Skills:</h3>
+        <p>${resume.skills}</p>
+        
+        <h3>Hobbies:</h3>
+<p><li>${resume.hobbies ? resume.hobbies.join('') : 'No hobbies selected'}</p></li>
+ `;
+    }
+  </script>
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+    
+    .first-half {
+      background-color: #d7b6a1;
+      padding: 20px;
+
+    }
+    
+    .center-align {
+    text-align: center;
+   }
+
+    .second-half {
+      background-color: #fdffdb;
+      padding: 20px;
+    }
+    
+    h1 {
+      text-align: left;
+    }
+    
+    form {
+      margin-bottom: 20px;
+    }
+    
+    h2, h3 {
+      margin-top: 30px;
+    }
+    
+    input, textarea, button {
+      margin-bottom: 10px;
+    }
+    
+    #resumeOutput {
+      border: 1px solid #ccc;
+      padding: 10px;
+    }
+    
+    .contact-label {
+      color: blue;
+      margin-right: 5px;
+    }
+</style>
+</body>
+</html>
